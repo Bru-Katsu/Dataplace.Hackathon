@@ -54,6 +54,8 @@ namespace Dataplace.Imersao.Core.Application.Orcamentos.Queries
 		        Orcamento.Usuario,
 		   		Orcamento.CdTabela,
 		        Orcamento.SqTabela,
+                OrigemVda.CdOrigemVda,
+                OrigemVda.DsOrigemVda,
                 -- previsão de entrega vem dos itens
                 (SELECT COUNT(1) FROM OrcamentoItem where OrcamentoItem.numorcamento = Orcamento.numorcamento and OrcamentoItem.CdEmpresa = Orcamento.CdEmpresa AND OrcamentoItem.CdFilial = Orcamento.CdFilial) AS TotalItens,
                 (SELECT MIN(OrcamentoItem.dtpreventrega) FROM OrcamentoItem where OrcamentoItem.numorcamento = Orcamento.numorcamento and OrcamentoItem.CdEmpresa = Orcamento.CdEmpresa AND OrcamentoItem.CdFilial = Orcamento.CdFilial) AS DtPrevEntrega
@@ -71,6 +73,8 @@ namespace Dataplace.Imersao.Core.Application.Orcamentos.Queries
                     ON Vendedor.cdVendedor = Orcamento.cdVendedor
                         AND Vendedor.cdempresa = Orcamento.cdempresa
                         AND Vendedor.cdfilial = Orcamento.cdfilial
+                INNER JOIN OrigemVda
+                    ON Orcamento.CdOrigemVda = OrigemVda.CdOrigemVda
 
             /**where**/	
             /**orderby**/
@@ -86,8 +90,37 @@ namespace Dataplace.Imersao.Core.Application.Orcamentos.Queries
                 builder.Where($"orcamento.StOrcamento IN ('{string.Join("','", request.SituacaoList.Select(x => x.ToDataValue()))}')");
 
             if(request.DtInicio.HasValue && request.DtFim.HasValue)
-                builder.Where("orcamento.DtOrcamento between @DtInicio AND @DtFim ", new { DtInicio = request.DtInicio.Value.Date, DtFim = request.DtFim.Value.Date.AddDays(1).AddSeconds(-1) });
+            {
+                if (request.TipoPeriodo == TipoPeriodoEnum.Abertura)
+                    builder.Where("orcamento.DtOrcamento between @DtInicio AND @DtFim ", new { DtInicio = request.DtInicio.Value.Date, DtFim = request.DtFim.Value.Date.AddDays(1).AddSeconds(-1) });
 
+                if(request.TipoPeriodo == TipoPeriodoEnum.Fechamento)
+                    builder.Where("orcamento.dtfechamento between @DtInicio AND @DtFim ", new { DtInicio = request.DtInicio.Value.Date, DtFim = request.DtFim.Value.Date.AddDays(1).AddSeconds(-1) });
+
+                if(request.TipoPeriodo == TipoPeriodoEnum.PrevisaoFechamento)
+                    builder.Where("orcamento.dtprevisao between @DtInicio AND @DtFim ", new { DtInicio = request.DtInicio.Value.Date, DtFim = request.DtFim.Value.Date.AddDays(1).AddSeconds(-1) });
+
+                if (request.TipoPeriodo == TipoPeriodoEnum.Validade)
+                    builder.Where("orcamento.dtvalidade between @DtInicio AND @DtFim ", new { DtInicio = request.DtInicio.Value.Date, DtFim = request.DtFim.Value.Date.AddDays(1).AddSeconds(-1) });
+            }
+
+            if (!string.IsNullOrEmpty(request.CdCliente))
+                builder.Where("orcamento.cdcliente = @CdCliente", new { request.CdCliente });
+
+            if (request.OrigensVenda?.Count() > 0)
+                builder.Where("orcamento.CdOrigemVda IN (@OrigensVenda)", new { OrigensVenda = $"'{string.Join("','", request.OrigensVenda)}'" });
+
+            if(request.Vendedores?.Count() > 0)
+                builder.Where("orcamento.CdVendedor IN (@Vendedores)", new { Vendedores = $"'{string.Join("','", request.Vendedores)}'" });
+
+            if (request.CondicoesPagto?.Count() > 0)
+                builder.Where("orcamento.cdcondpgto IN (@CondicoesPagto)", new { CondicoesPagto = $"'{string.Join("','", request.CondicoesPagto)}'" });
+
+            if (request.Comercializacoes?.Count() > 0)
+                builder.Where("orcamento.cdcomercializacao IN (@Comercializacoes)", new { Comercializacoes = $"'{string.Join("','", request.Comercializacoes)}'" });
+
+            if (!string.IsNullOrEmpty(request.CdTabela) && request.SqTabela.HasValue)
+                builder.Where("orcamento.CdTabela = @CdTabela AND orcamento.SqTabela = @SqTabela", new { request.CdTabela, SqTabela = request.SqTabela.Value });
 
             builder.OrderBy("orcamento.DtOrcamento DESC");
 

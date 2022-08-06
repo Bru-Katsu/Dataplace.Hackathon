@@ -84,8 +84,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\PedidoSearch.cs" />
+    <Compile Include="Extensions\LogBuilderExtensions.cs" />
+    <Compile Include="Extensions\LookupEditorExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Orcamentos\Behaviors\FastInputGridBehavior.cs" />
+    <Compile Include="Views\Orcamentos\ListViewProviders\ComercializacaoListViewProvider.cs" />
+    <Compile Include="Views\Orcamentos\ListViewProviders\CondicaoPagamentoListViewProvider.cs" />
+    <Compile Include="Views\Orcamentos\ListViewProviders\NaturezaOperacaoListViewProvider.cs" />
+    <Compile Include="Views\Orcamentos\ListViewProviders\OrigemVendaListViewProvider.cs" />
+    <Compile Include="Views\Orcamentos\ListViewProviders\VendedoresListViewProviders.cs" />
     <Compile Include="Views\Orcamentos\Messages\OrcamentoAdicionadoMessage.cs" />
     <Compile Include="Views\Orcamentos\Messages\OrcamentoItemAtualizadoMessage.cs" />
     <Compile Include="Views\Orcamentos\Messages\OrcamentoSelecionadoMessage.cs" />

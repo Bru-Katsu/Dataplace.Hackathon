@@ -91,6 +91,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\Behaviors\ValidationBehaviour.cs" />
+    <Compile Include="Application\Comercializacoes\Queries\ComercializacaoFilterViewModel.cs" />
+    <Compile Include="Application\Comercializacoes\Queries\ComercializaçãoQueryHandler.cs" />
+    <Compile Include="Application\Comercializacoes\ViewModels\ComercializacaoViewModel.cs" />
+    <Compile Include="Application\CondicaoPagamento\Queries\CondicaoPagamentoFilterViewModel.cs" />
+    <Compile Include="Application\CondicaoPagamento\Queries\CondicaoPagamentoQueryHandler.cs" />
+    <Compile Include="Application\CondicaoPagamento\ViewModels\CondicaoPagamentoViewModel.cs" />
     <Compile Include="Application\Orcamentos\Commands\AdicionarOrcamentoCommand.cs" />
     <Compile Include="Application\Orcamentos\Commands\AdicionarItemCommand.cs" />
     <Compile Include="Application\Orcamentos\Commands\AtribuirDataDePrevisaoEntregaAoOrcamentoCommand.cs" />
@@ -127,9 +133,15 @@
     <Compile Include="Application\Orcamentos\ViewModels\OrcamentoItemViewModel.cs" />
     <Compile Include="Application\Orcamentos\ViewModels\OrcamentoViewModel.cs" />
     <Compile Include="Application\Produtos\Queries\ProdutoSerachQueryHandler.cs" />
+    <Compile Include="Application\Vendedores\Queries\VendedorFilterViewModel.cs" />
+    <Compile Include="Application\Vendedores\Queries\VendedorQueryHandler.cs" />
+    <Compile Include="Application\Vendedores\ViewModels\VendedorViewModel.cs" />
     <Compile Include="BootStrapper.cs" />
     <Compile Include="Domain\Execptions\DomainException.cs" />
     <Compile Include="Domain\Execptions\ValueLowerThanZeroDomainException.cs" />
+    <Compile Include="Application\NaturezaOperacoes\Queries\NaturezaOperacaoQueryHandler.cs" />
+    <Compile Include="Application\NaturezaOperacoes\Queries\NaturezaOperacaoFilterViewModel.cs" />
+    <Compile Include="Application\NaturezaOperacoes\ViewModels\NaturezaOperacaoViewModel.cs" />
     <Compile Include="Domain\Orcamentos\Enums\OrcamentoItemStatusEnum.cs" />
     <Compile Include="Domain\Orcamentos\Enums\OrcamentoStatusEnum.cs" />
     <Compile Include="Domain\Orcamentos\Enums\TpRegistroEnum.cs" />
@@ -144,12 +156,16 @@
     <Compile Include="Domain\Orcamentos\ValueObjects\OrcamentoUsuario.cs" />
     <Compile Include="Domain\Orcamentos\ValueObjects\OrcamentoValidade.cs" />
     <Compile Include="Domain\Orcamentos\ValueObjects\OrcamentoVendedor.cs" />
+    <Compile Include="Application\OrigemVenda\Queries\OrigemVendaFilterViewModel.cs" />
+    <Compile Include="Application\OrigemVenda\Queries\OrigemVendaQueryHandler.cs" />
+    <Compile Include="Application\OrigemVenda\ViewModels\OrigemVendaViewModel.cs" />
     <Compile Include="Domain\Produtos\ProdutoPreco.cs" />
     <Compile Include="Domain\Produtos\Repositories\ProdutoRepository.cs" />
     <Compile Include="Domain\Services\OrcamentoService.cs" />
     <Compile Include="Infra\Data\Polices\RetryPolicy.cs" />
     <Compile Include="Infra\Data\Repositories\OrcamentoRepository.cs" />
     <Compile Include="Infra\Data\Repositories\ProdutoRepository.cs" />
+    <Compile Include="Infra\Extensions\SortingExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

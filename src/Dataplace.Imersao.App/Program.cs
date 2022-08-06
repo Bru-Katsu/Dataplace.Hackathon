@@ -9,6 +9,7 @@ using Dataplace.Imersao.Core.Domain.Orcamentos.Repositories;
 using Dataplace.Imersao.Core.Domain.Produtos.Repositories;
 using Dataplace.Imersao.Core.Domain.Services;
 using Dataplace.Imersao.Core.Infra.Data.Repositories;
+using Dataplace.Imersao.Presentation.Views.Orcamentos.ListViewProviders;
 using Dataplace.Imersao.Presentation.Views.Orcamentos.Tools;
 using Dataplace.Imersao.Presentation.Views.Providers;
 using MediatR;
@@ -72,7 +73,11 @@ namespace Dataplace.Imersao.App
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IOrcamentoRepository, OrcamentoRepository>();
 
-
+            services.AddRegisterViewProvider<SelectableListView, NaturezaOperacaoListViewProvider>();
+            services.AddRegisterViewProvider<SelectableListView, OrigemVendaListViewProvider>();
+            services.AddRegisterViewProvider<SelectableListView, VendedorListViewProvider>();
+            services.AddRegisterViewProvider<SelectableListView, ComercializacaoListViewProvider>();
+            services.AddRegisterViewProvider<SelectableListView, CondicaoPagamentoListViewProvider>();
         }
 
     }
